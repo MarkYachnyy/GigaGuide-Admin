@@ -209,3 +209,8 @@ fun EditSightScreen(
         }
     }
 }
+
+@Composable
+fun EditMomentBox(){
+
+}
