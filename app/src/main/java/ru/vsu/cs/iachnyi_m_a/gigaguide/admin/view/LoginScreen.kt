@@ -17,6 +17,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
@@ -42,9 +44,11 @@ fun CustomTextField(
     value: String,
     onValueChange: (String) -> Unit,
     isPassword: Boolean = false,
-    multiLine: Boolean = false
+    multiLine: Boolean = false,
+    style: TextStyle = MaterialTheme.typography.titleMedium.copy(fontWeight = FontWeight.Normal)
 ) {
     TextField(
+        textStyle = style,
         value = value,
         onValueChange = onValueChange,
         colors = TextFieldDefaults.colors(
@@ -55,7 +59,7 @@ fun CustomTextField(
             cursorColor = MaterialTheme.colorScheme.onPrimaryContainer
         ),
         placeholder = {
-            Text(hint, color = MaterialTheme.colorScheme.onPrimaryContainer)
+            Text(text = hint, color = MaterialTheme.colorScheme.onPrimaryContainer, style = style)
         },
         modifier = modifier
             .clip(RoundedCornerShape(10.dp))

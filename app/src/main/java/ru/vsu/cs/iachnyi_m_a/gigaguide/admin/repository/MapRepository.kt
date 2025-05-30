@@ -20,8 +20,8 @@ class MapRepository() {
         }
     }
 
-    suspend fun getCoordinatesOfMoment(sightId: Long): MapPoint? {
-        var response = mapAPI.getMomentCoordinates(sightId).execute()
+    suspend fun getCoordinatesOfMoment(momentId: Long): MapPoint? {
+        var response = mapAPI.getMomentCoordinates(momentId).execute()
         return if (response.isSuccessful) {
             MapPoint(latitude = response.body()!!.latitude, longitude = response.body()!!.longitude)
         } else {

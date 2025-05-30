@@ -5,6 +5,7 @@ import retrofit2.Call
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Query
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.ServerResponseMessageDTO
@@ -22,4 +23,13 @@ interface SightAPI {
     @Multipart
     @POST("sights")
     fun createSight(@Part image: MultipartBody.Part, @Part sightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
+
+    @Multipart
+    @PUT("sights")
+    fun updateSightWithImage(@Part image: MultipartBody.Part, @Part updateSightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
+
+    @Multipart
+    @PUT("sights")
+    fun updateSightWithoutImage(@Part updateSightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
+
 }

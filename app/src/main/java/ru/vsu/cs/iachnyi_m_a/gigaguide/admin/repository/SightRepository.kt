@@ -8,10 +8,12 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.api.SightAPI
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.ServerResponseMessageDTO
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.mapper.SightDTOMapper
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.sight.CreateSightDTO
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.sight.PreviewSightDTO
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.sight.SightDTO
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.sight.UpdateSightDTO
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.SightInfo
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.SightSearchResult
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.ServerUtils
@@ -79,6 +81,54 @@ class SightRepository() {
                 )
             )
         ).execute()
+        return resp.isSuccessful
+    }
+
+    suspend fun update(
+        image: File?, sightId: Int, name: String,
+        description: String,
+        city: String,
+        latitude: Double,
+        longitude: Double
+    ): Boolean? {
+        var resp: Response<ServerResponseMessageDTO>
+        if (image == null) {
+            resp = sightAPI.updateSightWithoutImage(
+                updateSightJSON = MultipartBody.Part.createFormData(
+                    name = "sight", value = Gson().toJson(
+                        UpdateSightDTO(
+                            id = sightId,
+                            name = name,
+                            description = description,
+                            city = city,
+                            latitude = latitude,
+                            longitude = longitude
+                        )
+                    )
+                )
+            ).execute()
+        } else {
+            resp = sightAPI.updateSightWithImage(
+                image = MultipartBody.Part.createFormData(
+                    name = "image",
+                    filename = "image.jpg",
+                    body = image.asRequestBody()
+                ),
+                updateSightJSON = MultipartBody.Part.createFormData(
+                    name = "sight", value = Gson().toJson(
+                        UpdateSightDTO(
+                            id = sightId,
+                            name = name,
+                            description = description,
+                            city = city,
+                            latitude = latitude,
+                            longitude = longitude
+                        )
+                    )
+                )
+            ).execute()
+        }
+
         return resp.isSuccessful
     }
 
