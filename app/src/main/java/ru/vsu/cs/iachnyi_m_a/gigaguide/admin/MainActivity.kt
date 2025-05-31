@@ -25,7 +25,9 @@ import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.AuthRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.MapRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.MomentRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.SightRepository
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.SightReviewRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.TourRepository
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.TourReviewRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.UserRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.GigaGuideAdminTheme
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.CurrentLoginState
@@ -35,12 +37,14 @@ import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.CreateTourScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.EditSightScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.EditTourScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.LoginScreen
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.ReviewScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.SearchScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.CreateSightScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.CreateTourScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.EditSightScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.EditTourScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.LoginScreenViewModel
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.ReviewScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.SearchScreenViewModel
 
 class MainActivity : ComponentActivity() {
@@ -54,14 +58,19 @@ class MainActivity : ComponentActivity() {
         var userRepository = UserRepository()
         var momentRepository = MomentRepository()
         var mapRepository = MapRepository()
+        var sightReviewRepository = SightReviewRepository()
+        var tourReviewRepository = TourReviewRepository()
 
         var loginScreenViewModel = LoginScreenViewModel(dataStoreManager, authRepository)
         var searchScreenViewModel = SearchScreenViewModel(sightRepository, tourRepository)
         var createSightScreenViewModel = CreateSightScreenViewModel(sightRepository, this)
         var editSightScreenViewModel =
             EditSightScreenViewModel(sightRepository, momentRepository, mapRepository, this)
-        var createTourScreenViewModel = CreateTourScreenViewModel(tourRepository, sightRepository, this)
+        var createTourScreenViewModel =
+            CreateTourScreenViewModel(tourRepository, sightRepository, this)
         var editTourScreenViewModel = EditTourScreenViewModel(sightRepository, tourRepository, this)
+        var reviewScreenViewModel =
+            ReviewScreenViewModel(sightReviewRepository, tourReviewRepository, dataStoreManager)
 
         enableEdgeToEdge()
         setContent {
@@ -98,16 +107,33 @@ class MainActivity : ComponentActivity() {
                             CreateSightScreen(createSightScreenViewModel, navController)
                         }
                         composable<EditTourScreenClass> {
-                            EditTourScreen(it.toRoute<EditTourScreenClass>().tourId.toInt(), editTourScreenViewModel, navController)
+                            EditTourScreen(
+                                it.toRoute<EditTourScreenClass>().tourId.toInt(),
+                                editTourScreenViewModel,
+                                navController
+                            )
                         }
                         composable<SightReviewScreenClass> {
-
+                            ReviewScreen(
+                                navController = navController,
+                                objectId = it.toRoute<SightReviewScreenClass>().sightId,
+                                isTour = false,
+                                reviewScreenViewModel = reviewScreenViewModel
+                            )
                         }
                         composable<TourReviewScreenClass> {
-
+                            ReviewScreen(
+                                navController = navController,
+                                objectId = it.toRoute<TourReviewScreenClass>().tourId,
+                                isTour = true,
+                                reviewScreenViewModel = reviewScreenViewModel
+                            )
                         }
                         composable<CreateTourScreenObject> {
-                            CreateTourScreen(navController = navController, createTourScreenViewModel = createTourScreenViewModel)
+                            CreateTourScreen(
+                                navController = navController,
+                                createTourScreenViewModel = createTourScreenViewModel
+                            )
                         }
                     }
                 } else {

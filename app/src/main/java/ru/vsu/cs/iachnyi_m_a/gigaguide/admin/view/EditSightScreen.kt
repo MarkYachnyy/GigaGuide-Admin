@@ -20,6 +20,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
+import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -42,6 +43,7 @@ import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.R
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.EditMoment
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.navigation.SightReviewScreenClass
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.MediumBlue
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.MediumGrey
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.Red
@@ -133,11 +135,18 @@ fun EditSightScreen(
                     color = MaterialTheme.colorScheme.onBackground
                 )
             }
-            RoundedCornerSquareButton(
-                modifier = Modifier.size(40.dp),
-                imageVector = Icons.Filled.Delete,
-                contentColor = Red,
-                onClick = { deleteDialogOpen = true })
+            Row {
+                RoundedCornerSquareButton(
+                    modifier = Modifier.padding(end = 5.dp).size(40.dp),
+                    imageVector = ImageVector.vectorResource(R.drawable.comment),
+                    onClick = { navController.navigate(SightReviewScreenClass(sightId.toLong())) })
+                RoundedCornerSquareButton(
+                    modifier = Modifier.size(40.dp),
+                    contentColor = Red,
+                    imageVector = Icons.Filled.Delete,
+                    onClick = { deleteDialogOpen = true })
+            }
+
         }
 
         if (editSightScreenViewModel.sight == null) {

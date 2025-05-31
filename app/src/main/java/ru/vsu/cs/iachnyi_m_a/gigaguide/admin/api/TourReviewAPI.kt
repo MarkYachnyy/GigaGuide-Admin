@@ -6,10 +6,11 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Query
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.ReviewDTO
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.ReviewsDTO
 
 interface TourReviewAPI {
     @GET("tours")
-    fun getAll(@Header("Authorization") token: String, @Query("tourId") tourId: Int): Call<ReviewDTO>
+    fun getAll(@Header("Authorization") token: String, @Query("tourId") tourId: Int): Call<ReviewsDTO>
 
     @DELETE("tours")
     fun deleteReview(@Header("Authorization") token: String, @Query("reviewId") reviewId: Int): Call<String>

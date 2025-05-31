@@ -63,7 +63,7 @@ fun CreateTourScreen(
                 onClick = { navController.popBackStack() })
             Text(
                 modifier = Modifier.padding(start = 10.dp),
-                text = "Создание дост-ти",
+                text = "Создание тура",
                 style = MaterialTheme.typography.titleLarge,
                 color = MaterialTheme.colorScheme.onBackground
             )
