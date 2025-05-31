@@ -232,4 +232,13 @@ class EditSightScreenViewModel(
         editMoments.add(editMoment)
     }
 
+    fun deleteSight(success: () -> Unit){
+        viewModelScope.launch {
+            var resp = ServerUtils.executeNetworkCall { sightRepository.delete(sight!!.id.toInt()) }
+            if(resp != null && resp){
+                success.invoke()
+            }
+        }
+    }
+
 }

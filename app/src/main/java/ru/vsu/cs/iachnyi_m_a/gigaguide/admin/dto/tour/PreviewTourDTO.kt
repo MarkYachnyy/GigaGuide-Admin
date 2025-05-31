@@ -1,4 +1,4 @@
-package ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto
+package ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.tour
 
 data class PreviewTourDTO(
     var id :Integer,

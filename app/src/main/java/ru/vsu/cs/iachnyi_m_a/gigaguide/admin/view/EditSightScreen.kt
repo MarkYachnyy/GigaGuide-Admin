@@ -37,6 +37,7 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.R
@@ -57,6 +58,53 @@ fun EditSightScreen(
         editSightScreenViewModel.loadExistingSight(sightId)
         editSightScreenViewModel.loadExistingMoments(sightId)
     }
+    var deleteDialogOpen by remember { mutableStateOf(false) }
+
+    when {
+        deleteDialogOpen -> {
+            Dialog(onDismissRequest = { deleteDialogOpen = false }) {
+                Column(
+                    modifier = Modifier
+                        .clip(RoundedCornerShape(20.dp))
+                        .background(color = MaterialTheme.colorScheme.background)
+                        .padding(20.dp),
+                    horizontalAlignment = Alignment.CenterHorizontally
+                ) {
+                    Text(
+                        modifier = Modifier.padding(bottom = 20.dp),
+                        text = "Удалить достопримечательность?",
+                        color = MaterialTheme.colorScheme.onBackground,
+                        style = MaterialTheme.typography.titleLarge
+                    )
+                    Row {
+                        Button(
+                            modifier = Modifier.padding(end = 20.dp),
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MediumBlue,
+                                contentColor = White
+                            ),
+                            contentPadding = PaddingValues(10.dp),
+                            onClick = { deleteDialogOpen = false }) {
+                            Text("Отмена")
+                        }
+                        Button(
+                            colors = ButtonDefaults.buttonColors(
+                                containerColor = MediumBlue,
+                                contentColor = White
+                            ),
+                            contentPadding = PaddingValues(10.dp),
+                            onClick = {
+                                editSightScreenViewModel.deleteSight { navController.popBackStack() }
+                                deleteDialogOpen = false
+                            }) {
+                            Text("УДАЛИТЬ")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     Column(
         modifier = Modifier
             .verticalScroll(rememberScrollState())
@@ -65,22 +113,33 @@ fun EditSightScreen(
             .padding(20.dp)
     ) {
         Row(
+            horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier
                 .padding(top = 20.dp)
                 .fillMaxWidth()
         ) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+            ) {
+                RoundedCornerSquareButton(
+                    modifier = Modifier.size(40.dp),
+                    imageVector = ImageVector.vectorResource(R.drawable.chevron_left),
+                    onClick = { navController.popBackStack() })
+                Text(
+                    modifier = Modifier.padding(start = 10.dp),
+                    text = "Обновление дост-ти",
+                    style = MaterialTheme.typography.titleLarge,
+                    color = MaterialTheme.colorScheme.onBackground
+                )
+            }
             RoundedCornerSquareButton(
                 modifier = Modifier.size(40.dp),
-                imageVector = ImageVector.vectorResource(R.drawable.chevron_left),
-                onClick = { navController.popBackStack() })
-            Text(
-                modifier = Modifier.padding(start = 10.dp),
-                text = "Обновление дост-ти",
-                style = MaterialTheme.typography.titleLarge,
-                color = MaterialTheme.colorScheme.onBackground
-            )
+                imageVector = Icons.Filled.Delete,
+                contentColor = Red,
+                onClick = { deleteDialogOpen = true })
         }
+
         if (editSightScreenViewModel.sight == null) {
             Text(
                 "Нет изображения",
@@ -480,7 +539,7 @@ fun EditMomentBox(
                     style = MaterialTheme.typography.bodySmall,
                     hint = "Текст аудиогида",
                     value = editMoment.newMomentContent,
-                    onValueChange = {editMoment.newMomentContent = it}
+                    onValueChange = { editMoment.newMomentContent = it }
                 )
             }
         }

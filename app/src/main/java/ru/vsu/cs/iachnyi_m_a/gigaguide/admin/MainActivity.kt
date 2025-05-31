@@ -31,11 +31,15 @@ import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.GigaGuideAdminTheme
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.CurrentLoginState
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.ServerUtils
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.CreateSightScreen
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.CreateTourScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.EditSightScreen
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.EditTourScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.LoginScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.view.SearchScreen
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.CreateSightScreenViewModel
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.CreateTourScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.EditSightScreenViewModel
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.EditTourScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.LoginScreenViewModel
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.viewmodel.SearchScreenViewModel
 
@@ -56,6 +60,8 @@ class MainActivity : ComponentActivity() {
         var createSightScreenViewModel = CreateSightScreenViewModel(sightRepository, this)
         var editSightScreenViewModel =
             EditSightScreenViewModel(sightRepository, momentRepository, mapRepository, this)
+        var createTourScreenViewModel = CreateTourScreenViewModel(tourRepository, sightRepository, this)
+        var editTourScreenViewModel = EditTourScreenViewModel(sightRepository, tourRepository, this)
 
         enableEdgeToEdge()
         setContent {
@@ -92,7 +98,7 @@ class MainActivity : ComponentActivity() {
                             CreateSightScreen(createSightScreenViewModel, navController)
                         }
                         composable<EditTourScreenClass> {
-
+                            EditTourScreen(it.toRoute<EditTourScreenClass>().tourId.toInt(), editTourScreenViewModel, navController)
                         }
                         composable<SightReviewScreenClass> {
 
@@ -101,7 +107,7 @@ class MainActivity : ComponentActivity() {
 
                         }
                         composable<CreateTourScreenObject> {
-
+                            CreateTourScreen(navController = navController, createTourScreenViewModel = createTourScreenViewModel)
                         }
                     }
                 } else {

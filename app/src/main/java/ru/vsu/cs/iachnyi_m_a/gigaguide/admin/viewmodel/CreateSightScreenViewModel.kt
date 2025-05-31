@@ -13,8 +13,6 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.SightInfo
-import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.MapRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.repository.SightRepository
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.ServerUtils
 import java.io.File
@@ -79,6 +77,8 @@ class CreateSightScreenViewModel(
     fun uploadPhoto() {
         pickImage.launch(PickVisualMediaRequest(PickVisualMedia.SingleMimeType("image/jpeg")))
     }
+
+
 }
 
 fun Uri.toFile(context: Context): File? {

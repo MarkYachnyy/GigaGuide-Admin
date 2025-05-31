@@ -2,6 +2,7 @@ package ru.vsu.cs.iachnyi_m_a.gigaguide.admin.api
 
 import okhttp3.MultipartBody
 import retrofit2.Call
+import retrofit2.http.DELETE
 import retrofit2.http.GET
 import retrofit2.http.Multipart
 import retrofit2.http.POST
@@ -31,5 +32,8 @@ interface SightAPI {
     @Multipart
     @PUT("sights")
     fun updateSightWithoutImage(@Part updateSightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
+
+    @DELETE("sights")
+    fun deleteSight(@Query("id") id: Int): Call<ServerResponseMessageDTO>
 
 }

@@ -1,6 +1,6 @@
 package ru.vsu.cs.iachnyi_m_a.gigaguide.mobile.dto.mapper
 
-import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.TourDTO
+import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.tour.TourDTO
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.SightTourThumbnail
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.model.TourInfo
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.util.ServerUtils

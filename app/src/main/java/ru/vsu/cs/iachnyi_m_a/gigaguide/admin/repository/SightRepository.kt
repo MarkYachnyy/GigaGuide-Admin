@@ -62,7 +62,7 @@ class SightRepository() {
         city: String,
         latitude: Double,
         longitude: Double
-    ): Boolean? {
+    ): Boolean {
         var resp = sightAPI.createSight(
             image = MultipartBody.Part.createFormData(
                 name = "image",
@@ -90,7 +90,7 @@ class SightRepository() {
         city: String,
         latitude: Double,
         longitude: Double
-    ): Boolean? {
+    ): Boolean {
         var resp: Response<ServerResponseMessageDTO>
         if (image == null) {
             resp = sightAPI.updateSightWithoutImage(
@@ -129,6 +129,15 @@ class SightRepository() {
             ).execute()
         }
 
+        return resp.isSuccessful
+    }
+
+    suspend fun delete(
+        sightId: Int
+    ): Boolean {
+        var resp = sightAPI.deleteSight(
+            sightId
+        ).execute()
         return resp.isSuccessful
     }
 

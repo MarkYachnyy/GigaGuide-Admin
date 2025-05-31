@@ -81,11 +81,16 @@ fun SearchScreen(
                 }
             }
 
-            Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.fillMaxWidth()) {
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
+            ) {
                 Box(
                     modifier = Modifier
-                        .clickable(onClick = { searchScreenViewModel.searchTours = false
-                        searchScreenViewModel.loadSearchResult()})
+                        .clickable(onClick = {
+                            searchScreenViewModel.searchTours = false
+                            searchScreenViewModel.loadSearchResult()
+                        })
                         .weight(1f)
                         .padding(start = 5.dp, end = 5.dp, top = 10.dp)
                         .clip(CircleShape)
@@ -100,8 +105,10 @@ fun SearchScreen(
                 }
                 Box(
                     modifier = Modifier
-                        .clickable(onClick = { searchScreenViewModel.searchTours = true
-                            searchScreenViewModel.loadSearchResult()})
+                        .clickable(onClick = {
+                            searchScreenViewModel.searchTours = true
+                            searchScreenViewModel.loadSearchResult()
+                        })
                         .weight(1f)
                         .padding(start = 5.dp, end = 5.dp, top = 10.dp)
                         .clip(CircleShape)
@@ -136,20 +143,7 @@ fun SearchScreen(
                     )
                 }
 
-                if (searchScreenViewModel.sightResult.isNotEmpty()) {
-                    for (thumbnail in searchScreenViewModel.sightResult) {
-                        SightTourSearchResult(
-                            modifier = Modifier
-                                .clickable(onClick = {
-                                    navController.navigate(
-                                        EditSightScreenClass(thumbnail.sightId)
-                                    )
-                                })
-                                .fillMaxWidth(0.5f)
-                                .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
-                            sightTourThumbnail = thumbnail
-                        )
-                    }
+                if (searchScreenViewModel.searchTours) {
                     for (thumbnail in searchScreenViewModel.tourResult) {
                         SightTourSearchResult(
                             modifier = Modifier
@@ -163,7 +157,23 @@ fun SearchScreen(
                             sightTourThumbnail = thumbnail
                         )
                     }
+                } else {
+                    for (thumbnail in searchScreenViewModel.sightResult) {
+                        SightTourSearchResult(
+                            modifier = Modifier
+                                .clickable(onClick = {
+                                    navController.navigate(
+                                        EditSightScreenClass(thumbnail.sightId)
+                                    )
+                                })
+                                .fillMaxWidth(0.5f)
+                                .padding(start = 5.dp, end = 5.dp, bottom = 10.dp),
+                            sightTourThumbnail = thumbnail
+                        )
+                    }
                 }
+
+
             }
         }
     }
