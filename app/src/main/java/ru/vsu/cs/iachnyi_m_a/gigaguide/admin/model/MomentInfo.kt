@@ -4,5 +4,6 @@ data class MomentInfo (
     var id: Long,
     var name: String,
     var imagePath: String,
-    var orderNumber: Number
+    var orderNumber: Number,
+    var content: String
 )

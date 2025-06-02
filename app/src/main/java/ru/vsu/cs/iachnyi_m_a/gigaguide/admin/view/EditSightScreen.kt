@@ -20,7 +20,6 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.KeyboardArrowDown
 import androidx.compose.material.icons.filled.KeyboardArrowUp
-import androidx.compose.material.icons.filled.Send
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -548,7 +547,8 @@ fun EditMomentBox(
                     style = MaterialTheme.typography.bodySmall,
                     hint = "Текст аудиогида",
                     value = editMoment.newMomentContent,
-                    onValueChange = { editMoment.newMomentContent = it }
+                    onValueChange = { editMoment.newMomentContent = it },
+                    multiLine = true
                 )
             }
         }

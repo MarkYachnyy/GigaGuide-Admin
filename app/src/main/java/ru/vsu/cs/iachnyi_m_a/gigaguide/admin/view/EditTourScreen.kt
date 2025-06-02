@@ -35,7 +35,6 @@ import androidx.compose.ui.window.Dialog
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.R
-import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.navigation.SightReviewScreenClass
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.navigation.TourReviewScreenClass
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.MediumBlue
 import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.ui.theme.MediumGrey

@@ -85,7 +85,7 @@ class EditSightScreenViewModel(
                         var editMoment = EditMoment()
                         editMoment.existingMoment = moment
                         editMoment.newMomentName = moment.name
-                        editMoment.newMomentContent = ""
+                        editMoment.newMomentContent = moment.content
                         editMoment.newMomentLatitude = momentCoords.latitude
                         editMoment.newMomentLongitude = momentCoords.longitude
                         editMoments.add(editMoment)
