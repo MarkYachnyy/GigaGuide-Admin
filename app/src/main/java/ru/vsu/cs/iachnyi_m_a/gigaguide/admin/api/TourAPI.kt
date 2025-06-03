@@ -22,17 +22,17 @@ interface TourAPI {
     fun searchTours(@Query("name") name: String): Call<List<PreviewTourDTO>>
 
     @Multipart
-    @POST("tours")
+    @POST("admin/tours")
     fun createTour(@Part image: MultipartBody.Part, @Part tourJSON: MultipartBody.Part): Call<String>
 
     @Multipart
-    @PUT("tours")
+    @PUT("admin/tours")
     fun updateTourWithImage(@Part image: MultipartBody.Part, @Part updateTourJSON: MultipartBody.Part): Call<String>
 
     @Multipart
-    @PUT("tours")
+    @PUT("admin/tours")
     fun updateTourWithoutImage(@Part updateTourJSON: MultipartBody.Part): Call<String>
 
-    @DELETE("tours")
+    @DELETE("admin/tours")
     fun deleteTour(@Query("id") id: Int): Call<String>
 }

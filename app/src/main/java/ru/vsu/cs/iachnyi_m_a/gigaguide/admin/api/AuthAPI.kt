@@ -8,6 +8,6 @@ import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.LoginRequestDTO
 
 interface AuthAPI {
 
-    @POST("login")
+    @POST("admin/login")
     fun login(@Body loginRequestDTO: LoginRequestDTO): Call<JWTResponse>
 }

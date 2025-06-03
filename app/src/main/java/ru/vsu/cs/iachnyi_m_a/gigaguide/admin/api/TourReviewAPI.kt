@@ -12,6 +12,6 @@ interface TourReviewAPI {
     @GET("tours")
     fun getAll(@Header("Authorization") token: String, @Query("tourId") tourId: Int): Call<ReviewsDTO>
 
-    @DELETE("tours")
+    @DELETE("admin/tours")
     fun deleteReview(@Header("Authorization") token: String, @Query("reviewId") reviewId: Int): Call<String>
 }

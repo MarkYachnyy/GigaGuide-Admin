@@ -22,18 +22,18 @@ interface SightAPI {
     fun searchSights(@Query("name") name: String): Call<List<PreviewSightDTO>>
 
     @Multipart
-    @POST("sights")
+    @POST("admin/sights")
     fun createSight(@Part image: MultipartBody.Part, @Part sightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 
     @Multipart
-    @PUT("sights")
+    @PUT("admin/sights")
     fun updateSightWithImage(@Part image: MultipartBody.Part, @Part updateSightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 
     @Multipart
-    @PUT("sights")
+    @PUT("admin/sights")
     fun updateSightWithoutImage(@Part updateSightJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 
-    @DELETE("sights")
+    @DELETE("admin/sights")
     fun deleteSight(@Query("id") id: Int): Call<ServerResponseMessageDTO>
 
 }

@@ -15,18 +15,19 @@ import ru.vsu.cs.iachnyi_m_a.gigaguide.admin.dto.moment.MomentDTO
 interface MomentAPI {
     @GET("moments/sight")
     fun getAllMoments(@Query("sightId") sightId: Long): Call<List<MomentDTO>>
-    @DELETE("moments")
+
+    @DELETE("admin/moments")
     fun deleteMoment(@Query("id") momentId: Int): Call<ServerResponseMessageDTO>
 
     @Multipart
-    @POST("moments")
+    @POST("admin/moments")
     fun createMoment(@Part image: MultipartBody.Part, @Part momentJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 
     @Multipart
-    @PUT("moments")
+    @PUT("admin/moments")
     fun updateMomentWithImage(@Part image: MultipartBody.Part, @Part updateMomentJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 
     @Multipart
-    @PUT("moments")
+    @PUT("admin/moments")
     fun updateMomentWithoutImage(@Part updateMomentJSON: MultipartBody.Part): Call<ServerResponseMessageDTO>
 }

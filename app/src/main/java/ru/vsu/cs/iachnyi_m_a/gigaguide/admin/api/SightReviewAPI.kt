@@ -13,6 +13,6 @@ interface SightReviewAPI {
     fun getAll(@Header("Authorization") token: String, @Query("sightId") sightId: Int): Call<ReviewsDTO>
 
 
-    @DELETE("sights")
+    @DELETE("admin/sights")
     fun deleteReview(@Header("Authorization") token: String, @Query("reviewId") reviewId: Int): Call<String>
 }
